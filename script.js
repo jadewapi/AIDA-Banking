@@ -26,23 +26,23 @@ const allAccounts = [
         movementInfo: [
             {
                 movementAmount: 420,
-                movementDate: '06/23/2022'
+                movementDate: '06/23/2022, 20:39:12'
             },
             {
                 movementAmount: -300,
-                movementDate: '08/10/2022'
+                movementDate: '08/10/2022, 19:10:02'
             },
             {
                 movementAmount: 1000,
-                movementDate: '11/05/2022'
+                movementDate: '11/05/2022, 18:01:01'
             },
             {
                 movementAmount: -750,
-                movementDate: '03/17/2023'
+                movementDate: '03/17/2023, 04:05:15'
             },
             {
                 movementAmount: 800,
-                movementDate: '09/30/2022'
+                movementDate: '09/30/2022, 20:21:02'
             }
         ],
         interestRate: 1.2, 
@@ -53,39 +53,39 @@ const allAccounts = [
         movementInfo: [
             {
                 movementAmount: 550,
-                movementDate: '02/15/2023'
+                movementDate: '02/15/2023, 10:11:02'
             },
             {
                 movementAmount: -400,
-                movementDate: '07/08/2022'
+                movementDate: '07/08/2022, 01:07:19'
             },
             {
                 movementAmount: 1200,
-                movementDate: '09/21/2022'
+                movementDate: '09/21/2022, 07:10:06'
             },
             {
                 movementAmount: -900,
-                movementDate: '04/03/2023'
+                movementDate: '04/03/2023, 12:12:01'
             },
             {
                 movementAmount: 700,
-                movementDate: '11/12/2022'
+                movementDate: '11/12/2022, 05:15:12'
             },
             {
                 movementAmount: -250,
-                movementDate: '06/27/2022'
+                movementDate: '06/27/2022, 23:11:56'
             },
             {
                 movementAmount: 1500,
-                movementDate: '10/05/2022'
+                movementDate: '10/05/2022, 20:21:02'
             },
             {
                 movementAmount: -600,
-                movementDate: '03/18/2023'
+                movementDate: '03/18/2023, 06:09:01'
             },
             {
                 movementAmount: 950,
-                movementDate: '08/30/2022'
+                movementDate: '08/30/2022, 17:19:20'
             }
         ],
         interestRate: 3.5,
@@ -96,31 +96,31 @@ const allAccounts = [
         movementInfo: [
             {
                 movementAmount: 300,
-                movementDate: '05/23/2023'
+                movementDate: '05/23/2023, 01:12:12'
             },
             {
                 movementAmount: -200,
-                movementDate: '09/15/2022'
+                movementDate: '09/15/2022, 08:08:08'
             },
             {
                 movementAmount: 800,
-                movementDate: '12/07/2022'
+                movementDate: '12/07/2022, 20:12:53'
             },
             {
                 movementAmount: -600,
-                movementDate: '03/29/2023'
+                movementDate: '03/29/2023, 07:54:12'
             },
             {
                 movementAmount: 500,
-                movementDate: '07/18/2022'
+                movementDate: '07/18/2022, 12:23:53'
             },
             {
                 movementAmount: -400,
-                movementDate: '11/02/2022'
+                movementDate: '11/02/2022, 09:59:12'
             },
             {
                 movementAmount: 1000,
-                movementDate: '02/14/2023'
+                movementDate: '02/14/2023, 07:12:23'
             }
         ], 
         interestRate: 0.7,
@@ -131,15 +131,15 @@ const allAccounts = [
         movementInfo: [
             {
                 movementAmount: 750,
-                movementDate: '06/08/2023'
+                movementDate: '06/08/2023, 12:32:12'
             },
             {
                 movementAmount: -500,
-                movementDate: '10/20/2022'
+                movementDate: '10/20/2022, 23:27:23'
             },
             {
                 movementAmount: 1200,
-                movementDate: '01/03/2023'
+                movementDate: '01/03/2023, 15:12:05'
             }
         ],          
         interestRate: 1,
@@ -170,13 +170,7 @@ loginArrow.addEventListener('click', () => {
         clearInput();
     }
     if (currentAccount) {
-        const date = new Date();
-        const year = date.getFullYear();
-        const day = String(date.getDate()).padStart(2, '0');
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const hour = String(date.getHours()).padStart(2, '0');
-        const minute = String(date.getMinutes()).padStart(2, '0');
-        dashboardDate.textContent = `As of ${month}/${day}/${year}, ${hour}:${minute}`;
+        dashboardDate.textContent = `As of ${getDateAndTime()}`;
     }
 })
 
@@ -189,19 +183,17 @@ transferArrow.addEventListener('click', () => {
         });
         if (currentAccount != transferToAccount) {
             if (Number(amount.value) <= currentAccount.currentBalance && amount.value != '' && amount.value > 0) {
-                currentAccount.movements.push(-Math.abs(Number(amount.value)));
-                transferToAccount.movements.push(Math.abs(Number(amount.value)));
+                currentAccountPush(amount.value)
+                transferToAccount.movementInfo.push(
+                    {
+                        movementAmount: Math.abs(Number(amount.value)),
+                        movementDate: getDateAndTime()
+                    }
+                )
                 calculateCurrentBalance(allAccounts);
                 displayTransactionMovements(currentAccount);
                 currentBalance.textContent = `$${currentAccount.currentBalance.toLocaleString()}`;
                 clearInput();
-                // -------------------
-                currentAccount.movementInfo.push(
-                    {
-                        movementAmount: -(Math.abs(Number(amount.value))),
-                    }
-                )
-
             } else console.log('Insufficient Balance');
         };
     } else console.log('PLEASE LOGIN');
@@ -246,9 +238,9 @@ if (!currentAccount) {
 
 requestArrow.addEventListener('click', () => {
     if (currentAccount) {
-        const boolean = currentAccount.movements.some(movement => movement >= Math.abs(Number(loan.value) * .10) && Math.abs(Number(loan.value) != 0)); 
+        const boolean = currentAccount.movementInfo.some(movementObj => movementObj.movementAmount >= Math.abs(Number(loan.value) * .10) && Math.abs(Number(loan.value) != 0)); 
         if (boolean) {
-            currentAccount.movements.push(Math.abs(Number(loan.value)));
+            currentAccountPush(loan.value);
             displayTransactionMovements(currentAccount);
             calculateCurrentBalance(allAccounts);
             currentBalance.textContent = `$${currentAccount.currentBalance.toLocaleString()}`
@@ -317,4 +309,25 @@ function clearInput() {
     inputCloseUserName.value = '';
     inputClosePin.value = '';
     loan.value = '';
+}
+
+function getDateAndTime() {
+    const date = new Date();
+    const year = date.getFullYear();
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const hour = String(date.getHours()).padStart(2, '0');
+    const minute = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+    const format = `${month}/${day}/${year}, ${hour}:${minute}:${seconds}`
+    return format;
+}
+
+function currentAccountPush(inputValue) {
+    currentAccount.movementInfo.push(
+        {
+            movementAmount: Math.abs(Number(inputValue)),
+            movementDate: getDateAndTime()
+        }
+    );
 }
