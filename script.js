@@ -148,7 +148,7 @@ const allAccounts = [
 ];
 
 addUserName(allAccounts);
-// calculateCurrentBalance(allAccounts);
+calculateCurrentBalance(allAccounts);
 
 
 let currentAccount;
