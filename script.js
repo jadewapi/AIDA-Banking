@@ -148,27 +148,25 @@ const allAccounts = [
 ];
 
 addUserName(allAccounts);
-calculateCurrentBalance(allAccounts);
+// calculateCurrentBalance(allAccounts);
 
 
 let currentAccount;
 
 loginArrow.addEventListener('click', () => {
     currentAccount = allAccounts.find(ownerObj => {
-        if (ownerObj?.userName === userName.value){
+        if (ownerObj.userName === userName.value){
             return ownerObj;
-        } else {
-            clear();
         }
     })
     if (currentAccount && currentAccount.pin === Number(pin.value)){
+        // ---------------------------
         displayTransactionMovements(currentAccount);
-        currentBalance.textContent = `$${currentAccount.currentBalance.toLocaleString()}`;
+        // -----------------------------
+        // currentBalance.textContent = `$${currentAccount.currentBalance.toLocaleString()}`;
         sort.style.display = '';
         logout.style.display = '';
         clearInput();
-    } else {
-        clear();
     }
     if (currentAccount) {
         const date = new Date();
@@ -257,13 +255,13 @@ logout.addEventListener('click', () => {
     currentAccount = false;
 })
 
-function calculateCurrentBalance(allAccounts) {
-    allAccounts.forEach(obj => {
-        obj.currentBalance = obj.movements.reduce((curr, acc) => {
-            return curr + acc
-        })
-    })
-}
+// function calculateCurrentBalance(allAccounts) {
+//     allAccounts.forEach(obj => {
+//         obj.currentBalance = obj.movements.reduce((curr, acc) => {
+//             return curr + acc
+//         })
+//     })
+// }
 
 function addUserName(allAccounts) {
     allAccounts.forEach(obj => {
@@ -280,16 +278,18 @@ function displayTransactionMovements(currentAccount, sort = false){
     displayTransactions.innerHTML = '';
     const copiedObjectForSort = {
         ...currentAccount,
-        movements: currentAccount.movements.slice().sort((a,b) => a - b),
+        movementInfo: currentAccount.movementInfo.slice().sort((a, b) => b.movementAmount - a.movementAmount)
     }
     const copiedOrOriginal = sort ? copiedObjectForSort : currentAccount;
-    console.log(copiedOrOriginal);
+    
     accountName.textContent = currentAccount.owner.split(' ')[0]; 
+
     copiedOrOriginal.movements.forEach((amount, index)=> {
         const html = 
         `<div class="specificTransaction">
             <div class="transactionInfo">
                 <p class="transactionType ${amount > 0 ? 'deposit' : 'withdraw'}">${index + 1}: ${amount > 0 ? 'DEPOSIT' : 'WITHDRAW'}</p>
+                <p class="transactionDate">12/30/2003</p>
             </div>
             <p class="transactionAmount">${amount.toLocaleString()}</p>
         </div>`
