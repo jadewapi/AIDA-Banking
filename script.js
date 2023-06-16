@@ -23,25 +23,125 @@ const dashboardDate = document.querySelector('.dashboardDate');
 const allAccounts = [
     {
         owner: 'Jeet Pineda',
-        movements: [220, 470, -420, 3200, -670, -150, 90, 1300],
+        movementInfo: [
+            {
+                movementAmount: 420,
+                movementDate: '06/23/2022'
+            },
+            {
+                movementAmount: -300,
+                movementDate: '08/10/2022'
+            },
+            {
+                movementAmount: 1000,
+                movementDate: '11/05/2022'
+            },
+            {
+                movementAmount: -750,
+                movementDate: '03/17/2023'
+            },
+            {
+                movementAmount: 800,
+                movementDate: '09/30/2022'
+            }
+        ],
         interestRate: 1.2, 
         pin: 1111,
     },
     {
         owner: 'Samantha Mendoza',
-        movements: [-5100, 3500, 250, -250, -890, 3310, -1100, 9500, -40],
+        movementInfo: [
+            {
+                movementAmount: 550,
+                movementDate: '02/15/2023'
+            },
+            {
+                movementAmount: -400,
+                movementDate: '07/08/2022'
+            },
+            {
+                movementAmount: 1200,
+                movementDate: '09/21/2022'
+            },
+            {
+                movementAmount: -900,
+                movementDate: '04/03/2023'
+            },
+            {
+                movementAmount: 700,
+                movementDate: '11/12/2022'
+            },
+            {
+                movementAmount: -250,
+                movementDate: '06/27/2022'
+            },
+            {
+                movementAmount: 1500,
+                movementDate: '10/05/2022'
+            },
+            {
+                movementAmount: -600,
+                movementDate: '03/18/2023'
+            },
+            {
+                movementAmount: 950,
+                movementDate: '08/30/2022'
+            }
+        ],
         interestRate: 3.5,
         pin: 2222,
     },
     {
         owner: 'Steven Thompson',
-        movements: [300,-100, 500, -400, -10, 50, -120, -460],
+        movementInfo: [
+            {
+                movementAmount: 300,
+                movementDate: '05/23/2023'
+            },
+            {
+                movementAmount: -200,
+                movementDate: '09/15/2022'
+            },
+            {
+                movementAmount: 800,
+                movementDate: '12/07/2022'
+            },
+            {
+                movementAmount: -600,
+                movementDate: '03/29/2023'
+            },
+            {
+                movementAmount: 500,
+                movementDate: '07/18/2022'
+            },
+            {
+                movementAmount: -400,
+                movementDate: '11/02/2022'
+            },
+            {
+                movementAmount: 1000,
+                movementDate: '02/14/2023'
+            }
+        ], 
         interestRate: 0.7,
         pin: 3333,
     },
     {
         owner: 'Capy Bloom',
-        movements: [200, 210, 123, 928, 911],
+        movementInfo: [
+            {
+                movementAmount: 750,
+                movementDate: '06/08/2023'
+            },
+            {
+                movementAmount: -500,
+                movementDate: '10/20/2022'
+            },
+            {
+                movementAmount: 1200,
+                movementDate: '01/03/2023'
+            }
+        ],          
         interestRate: 1,
         pin: 4444,
     }
