@@ -1,0 +1,101 @@
+@media screen and (max-width: 1078px) {
+    main, nav {
+        padding: 0 3rem;
+    }
+    .login {
+        gap: 1rem;
+    }
+    .logo {
+        display: none;
+    }
+    nav > * {
+        width: 50%;
+    }
+    main > form > input {
+        font-size: 1.75rem;
+        width: 95%;
+    }
+    .actions {
+        grid-template-columns: repeat(2, 1fr) 2rem;
+    }
+    form > p {
+        display: flex;
+        align-items: center;
+        font-size: 2.5rem;
+    }
+}
+
+@media screen and (max-width: 861px) {
+    main {
+        grid-template-rows: auto repeat(3, 14rem) auto 14rem 14rem 14rem;
+    }
+    .displayTransactions {
+        grid-column: 1/-1;
+    }
+    .transfer, .close, .request {
+        width: 50em;
+        justify-self: center;
+    }
+    .transfer {
+        grid-row: 6/7;
+        grid-column: 1/-1;
+    }
+    .close {
+        grid-row: 7/8;
+        grid-column: 1/-1;
+    }
+    .request {
+        grid-row: 8/9;
+        grid-column: 1/-1;
+    }
+    .menu {
+        justify-content: center;
+        gap: 5rem;
+    }
+    .greet {
+        width: fit-content;
+    }
+    .login {
+        width: 60%;
+    }
+    .greetContainer {
+        width: 100%;
+    }
+    nav {
+        justify-content: space-between;
+    }
+}
+
+@media screen and (max-width: 861px) {
+    .menu {
+        gap: 2rem;
+    }
+    .navigations > button {
+        font-size: 1.75rem;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    html {
+        font-size: 50%;
+    }
+}
+
+@media screen and (max-width: 441px) {
+    html {
+        font-size: 40%;
+    }
+}
+
+@media screen and (min-width: 1505px) and (min-height: 801px) {
+    main {
+        height: 90vh;
+    }
+}  
+
+
+@media screen and (max-width: 1505px) and (min-height: 963px) {
+    main {
+        height: 90vh;
+    }
+}  
