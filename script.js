@@ -163,7 +163,8 @@ loginArrow.addEventListener('click', () => {
         // ---------------------------
         displayTransactionMovements(currentAccount);
         // -----------------------------
-        // currentBalance.textContent = `$${currentAccount.currentBalance.toLocaleString()}`;
+        calculateCurrentBalance(allAccounts);
+        currentBalance.textContent = `$${currentAccount.currentBalance.toLocaleString()}`;
         sort.style.display = '';
         logout.style.display = '';
         clearInput();
@@ -189,13 +190,20 @@ transferArrow.addEventListener('click', () => {
         if (currentAccount != transferToAccount) {
             if (Number(amount.value) <= currentAccount.currentBalance && amount.value != '' && amount.value > 0) {
                 currentAccount.movements.push(-Math.abs(Number(amount.value)));
-                transferToAccount.movements.push(Math.abs(Number(amount.value)))
+                transferToAccount.movements.push(Math.abs(Number(amount.value)));
                 calculateCurrentBalance(allAccounts);
                 displayTransactionMovements(currentAccount);
                 currentBalance.textContent = `$${currentAccount.currentBalance.toLocaleString()}`;
                 clearInput();
+                // -------------------
+                currentAccount.movementInfo.push(
+                    {
+                        movementAmount: -(Math.abs(Number(amount.value))),
+                    }
+                )
+
             } else console.log('Insufficient Balance');
-        }
+        };
     } else console.log('PLEASE LOGIN');
 })
 
@@ -255,13 +263,12 @@ logout.addEventListener('click', () => {
     currentAccount = false;
 })
 
-// function calculateCurrentBalance(allAccounts) {
-//     allAccounts.forEach(obj => {
-//         obj.currentBalance = obj.movements.reduce((curr, acc) => {
-//             return curr + acc
-//         })
-//     })
-// }
+function calculateCurrentBalance(allAccounts) {
+    allAccounts.forEach(accountObj => {
+        const movementAmountArray = accountObj.movementInfo.map(movementObj => movementObj.movementAmount);
+        accountObj.currentBalance = movementAmountArray.reduce((a,b) => a + b, 0);
+    })
+}
 
 function addUserName(allAccounts) {
     allAccounts.forEach(obj => {
@@ -278,20 +285,20 @@ function displayTransactionMovements(currentAccount, sort = false){
     displayTransactions.innerHTML = '';
     const copiedObjectForSort = {
         ...currentAccount,
-        movementInfo: currentAccount.movementInfo.slice().sort((a, b) => b.movementAmount - a.movementAmount)
+        movementInfo: currentAccount.movementInfo.slice().sort((a, b) => a.movementAmount - b.movementAmount)
     }
     const copiedOrOriginal = sort ? copiedObjectForSort : currentAccount;
-    
+
     accountName.textContent = currentAccount.owner.split(' ')[0]; 
 
-    copiedOrOriginal.movements.forEach((amount, index)=> {
+    copiedOrOriginal.movementInfo.forEach((movementObj, index)=> {
         const html = 
         `<div class="specificTransaction">
             <div class="transactionInfo">
-                <p class="transactionType ${amount > 0 ? 'deposit' : 'withdraw'}">${index + 1}: ${amount > 0 ? 'DEPOSIT' : 'WITHDRAW'}</p>
-                <p class="transactionDate">12/30/2003</p>
+                <p class="transactionType ${movementObj.movementAmount > 0 ? 'deposit' : 'withdraw'}">${index + 1}: ${movementObj.movementAmount > 0 ? 'DEPOSIT' : 'WITHDRAW'}</p>
+                <p class="transactionDate">${movementObj.movementDate}</p>
             </div>
-            <p class="transactionAmount">${amount.toLocaleString()}</p>
+            <p class="transactionAmount">${movementObj.movementAmount.toLocaleString()}</p>
         </div>`
         displayTransactions.insertAdjacentHTML('afterbegin', html);
     })
