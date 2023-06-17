@@ -18,6 +18,8 @@ const dashboard = document.querySelector('.dashboard');
 const loan = document.querySelector('.loan');
 const requestArrow = document.querySelector('.requestArrow');
 const dashboardDate = document.querySelector('.dashboardDate');
+const timerHTML = document.querySelector('.timer');
+
 
 
 const allAccounts = [
@@ -151,7 +153,7 @@ addUserName(allAccounts);
 calculateCurrentBalance(allAccounts);
 
 
-let currentAccount;
+let currentAccount, timer;
 
 loginArrow.addEventListener('click', () => {
     currentAccount = allAccounts.find(ownerObj => {
@@ -160,14 +162,14 @@ loginArrow.addEventListener('click', () => {
         }
     })
     if (currentAccount && currentAccount.pin === Number(pin.value)){
-        // ---------------------------
         displayTransactionMovements(currentAccount);
-        // -----------------------------
         calculateCurrentBalance(allAccounts);
         currentBalance.textContent = `$${currentAccount.currentBalance.toLocaleString()}`;
         sort.style.display = '';
         logout.style.display = '';
         clearInput();
+        if (startLogoutTimer()) clearInterval(timer);
+        startLogoutTimer();
     }
     if (currentAccount) {
         dashboardDate.textContent = `As of ${getDateAndTime()}`;
@@ -330,4 +332,24 @@ function currentAccountPush(inputValue) {
             movementDate: getDateAndTime()
         }
     );
+}
+
+
+const startLogoutTimer = function () {
+    const tick = function() {
+        const min = String(Math.trunc(time/60)).padStart(2,0);
+        const sec = String(time % 60).padStart(2,0);
+        timerHTML.textContent = `You will be logged out in ${min}:${sec}`
+        if (time === 0) {
+            clearInterval(timer);
+            currentAccount = '';
+            clearInput();
+            clear();
+        }
+        time--;
+    }
+    let time = 10;
+    tick();
+    const timer = setInterval(tick, 1000);
+    return timer;
 }
