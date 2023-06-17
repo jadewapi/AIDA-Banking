@@ -154,7 +154,7 @@ const allAccounts = [
 addUserName(allAccounts);
 calculateCurrentBalance(allAccounts);
 
-let initialTime = 10;
+let initialTime = 120;
 let time = initialTime;
 
 let currentAccount, timer;
@@ -364,7 +364,7 @@ const startLogoutTimer = function () {
         }
         time--;
     }
-    let time = 10;
+    let time = 120;
     tick();
     const timer = setInterval(tick, 1000);
     return timer;
