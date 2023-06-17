@@ -19,6 +19,8 @@ const loan = document.querySelector('.loan');
 const requestArrow = document.querySelector('.requestArrow');
 const dashboardDate = document.querySelector('.dashboardDate');
 const timerHTML = document.querySelector('.timer');
+const greetingText = document.querySelector('.greetingText');
+
 
 
 
