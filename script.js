@@ -154,6 +154,8 @@ const allAccounts = [
 addUserName(allAccounts);
 calculateCurrentBalance(allAccounts);
 
+let initialTime = 10;
+let time = initialTime;
 
 let currentAccount, timer;
 
@@ -167,14 +169,14 @@ loginArrow.addEventListener('click', () => {
         displayTransactionMovements(currentAccount);
         calculateCurrentBalance(allAccounts);
         currentBalance.textContent = `$${currentAccount.currentBalance.toLocaleString()}`;
+        dashboardDate.textContent = `As of ${getDateAndTime()}`;
         sort.style.display = '';
         logout.style.display = '';
         clearInput();
         if (timer) clearInterval(timer);
         timer = startLogoutTimer();
-    }
-    if (currentAccount) {
-        dashboardDate.textContent = `As of ${getDateAndTime()}`;
+        const currentHour = new Date().getHours();
+        greetingText.textContent = `Good, ${getTimeOfDay(currentHour)}`;
     }
 })
 
@@ -216,9 +218,7 @@ closeArrow.addEventListener('click', () => {
             return obj === closeAccountObj;
         })
         if (currentAccount === allAccounts[accountIndex]){
-            clear();
-            clearInput();
-            currentAccount = '';
+            noCurrentAccount();
         }
         allAccounts.splice(accountIndex, 1);
         console.log('After', allAccounts);
@@ -254,10 +254,10 @@ requestArrow.addEventListener('click', () => {
 })
 
 logout.addEventListener('click', () => {
-    clear();
-    clearInput();
-    currentAccount = false;
-})
+    noCurrentAccount();
+});
+
+
 
 function calculateCurrentBalance(allAccounts) {
     allAccounts.forEach(accountObj => {
@@ -284,9 +284,7 @@ function displayTransactionMovements(currentAccount, sort = false){
         movementInfo: currentAccount.movementInfo.slice().sort((a, b) => a.movementAmount - b.movementAmount)
     }
     const copiedOrOriginal = sort ? copiedObjectForSort : currentAccount;
-
     accountName.textContent = currentAccount.owner.split(' ')[0]; 
-
     copiedOrOriginal.movementInfo.forEach((movementObj, index)=> {
         const html = 
         `<div class="specificTransaction">
@@ -327,6 +325,25 @@ function getDateAndTime() {
     return format;
 }
 
+function getTimeOfDay(hour) {
+    let timeOfDay;
+    switch (true) {
+        case hour >= 5 && hour < 12:
+        timeOfDay = "morning";
+        break;
+        case hour >= 12 && hour < 18:
+        timeOfDay = "afternoon";
+        break;
+        case hour >= 18 && hour < 22:
+        timeOfDay = "evening";
+        break;
+        default:
+        timeOfDay = "night";
+    }
+    return timeOfDay;
+}
+
+
 function currentAccountPush(inputValue) {
     currentAccount.movementInfo.push(
         {
@@ -341,12 +358,9 @@ const startLogoutTimer = function () {
     const tick = function() {
         const min = String(Math.trunc(time/60)).padStart(2,0);
         const sec = String(time % 60).padStart(2,0);
-        timerHTML.textContent = `You will be logged out in ${min}:${sec}`
+        timerHTML.textContent = `You will be logged out in ${min}:${sec}`;
         if (time === 0) {
-            clearInterval(timer);
-            currentAccount = '';
-            clearInput();
-            clear();
+            noCurrentAccount();
         }
         time--;
     }
@@ -354,4 +368,15 @@ const startLogoutTimer = function () {
     tick();
     const timer = setInterval(tick, 1000);
     return timer;
+}
+
+function noCurrentAccount() {
+    clearInterval(timer);
+    currentAccount = false;
+    clearInput();
+    clear();
+    dashboardDate.textContent = 'As of --/--/--, --:--';
+    greetingText.textContent = 'Please Login!'
+    accountName.textContent = 'see read.me for login info';
+    timerHTML.textContent = 'You will be logged out in 00:00';
 }
