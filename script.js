@@ -168,8 +168,8 @@ loginArrow.addEventListener('click', () => {
         sort.style.display = '';
         logout.style.display = '';
         clearInput();
-        if (startLogoutTimer()) clearInterval(timer);
-        startLogoutTimer();
+        if (timer) clearInterval(timer);
+        timer = startLogoutTimer();
     }
     if (currentAccount) {
         dashboardDate.textContent = `As of ${getDateAndTime()}`;
