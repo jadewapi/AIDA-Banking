@@ -1,76 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="media.css">
-</head>
-<body>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="media.css" />
+  </head>
+  <body>
     <div class="credentials">made by Jade Pineda</div>
     <header>
-        <nav>
-            <div class="greet">
-                <div class="greetContainer">
-                    <p class="greetingText">Please login!</p>
-                    <p class="accountName">see read.me for login info</p>
-                </div>
-            </div>
-            <div class="logo">
-                <img src="images/AIDA.png" alt="logo">
-            </div>
-            <form class="login">
-                <input type="text" class="userName" placeholder="username">
-                <input type="text" class="pin" placeholder="pin">
-                <p type="submit" class="loginArrow">→</p>
-            </form>
-        </nav>
+      <nav>
+        <div class="greet">
+          <div class="greetContainer">
+            <p class="greetingText">Please login!</p>
+            <p class="accountName">see read.me for login info</p>
+          </div>
+        </div>
+        <div class="logo">
+          <img src="images/AIDA.png" alt="logo" />
+        </div>
+        <form class="login">
+          <input type="text" class="userName" placeholder="username" />
+          <input type="text" class="pin" placeholder="pin" />
+          <p type="submit" class="loginArrow">→</p>
+        </form>
+      </nav>
     </header>
     <main>
-        <section class="dashboard">
-            <article class="dashboardBalance">
-                <p>Current Balance</p>
-                <p class="dashboardDate">as of --/--/--, --:--</p>
-                <p class="currentBalance"></p>
-            </article>
-        </section>
-        <section class="displayTransactions">
-        </section>
-        <form class="transfer actions">
-            <label class="actionName">Transfer</label>
-            <input type="text" class="to">
-            <input type="text" class="amount">
-            <p type="submit" class="transferArrow">→</p>
-            <label class="toPerson">To</label>
-            <label class="toAmount">Amount</label>
-        </form>
-        <form class="close actions">
-            <label class="actionName">Close Account</label>
-            <input type="text" class="to inputCloseUserName">
-            <input type="text" class="to inputClosePin">
-            <p type="submit" class="closeArrow">→</p>
-            <label class="toPerson">Username</label>
-            <label class="toAmount">Pin</label>
-        </form>
-        <form class="request actions">
-            <label class="actionName">Reqeuest Loan</label>
-            <input type="text" class="amount loan">
-            <p type="submit" class="requestArrow">→</p>
-            <label class="toAmount loan">Amount (deposit > loan * 10%)</label>
-        </form>
-        <section class="menu">
-            <div class="navigations">
-                <button type="submit" class="sort">Sort</button>
-                <button type="submit" class="logout">Log out</button>
-            </div>
-            <p class="timer">You will be logged out in 00:00</p>
-        </section>
-        <script src="script.js"></script>
+      <section class="dashboard">
+        <article class="dashboardBalance">
+          <p>Current Balance</p>
+          <p class="dashboardDate">as of --/--/--, --:--</p>
+          <p class="currentBalance"></p>
+        </article>
+      </section>
+      <section class="displayTransactions"></section>
+      <form class="transfer actions">
+        <label class="actionName">Transfer</label>
+        <input type="text" class="to" />
+        <input type="text" class="amount" />
+        <p type="submit" class="transferArrow">→</p>
+        <label class="toPerson">To</label>
+        <label class="toAmount">Amount</label>
+      </form>
+      <form class="close actions">
+        <label class="actionName">Close Account</label>
+        <input type="text" class="to inputCloseUserName" />
+        <input type="text" class="to inputClosePin" />
+        <p type="submit" class="closeArrow">→</p>
+        <label class="toPerson">Username</label>
+        <label class="toAmount">Pin</label>
+      </form>
+      <form class="request actions">
+        <label class="actionName">Reqeuest Loan</label>
+        <input type="text" class="amount loan" />
+        <p type="submit" class="requestArrow">→</p>
+        <label class="toAmount loan">Amount (deposit > loan * 10%)</label>
+      </form>
+      <section class="menu">
+        <div class="navigations">
+          <button type="submit" class="sort">Sort</button>
+          <button type="submit" class="logout">Log out</button>
+        </div>
+        <p class="timer">You will be logged out in 00:00</p>
+      </section>
+      <script src="script.js"></script>
     </main>
-</body>
+  </body>
 </html>
