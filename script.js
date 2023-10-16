@@ -188,7 +188,7 @@ transferArrow.addEventListener("click", () => {
         amount.value != "" &&
         amount.value > 0
       ) {
-        currentAccountPush(amount.value);
+        currentAccountPush(Math.abs(Number(amount.value)) * -1);
         transferToAccount.movementInfo.push({
           movementAmount: Number(amount.value),
           movementDate: getDateAndTime(),
@@ -242,7 +242,7 @@ requestArrow.addEventListener("click", () => {
         Math.abs(Number(loan.value) != 0)
     );
     if (boolean) {
-      currentAccountPush(loan.value);
+      currentAccountPush(Math.abs(Number(loan.value)));
       displayTransactionMovements(currentAccount);
       calculateCurrentBalance(allAccounts);
       currentBalance.textContent = `$${currentAccount.currentBalance.toLocaleString()}`;
@@ -348,7 +348,7 @@ function getTimeOfDay(hour) {
 
 function currentAccountPush(inputValue) {
   currentAccount.movementInfo.push({
-    movementAmount: Math.abs(Number(inputValue)),
+    movementAmount: inputValue,
     movementDate: getDateAndTime(),
   });
 }
